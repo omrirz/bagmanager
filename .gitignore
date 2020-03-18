@@ -1,0 +1,7 @@
+.idea/
+.vscode/
+venv/
+dist/
+build/
+bagmanager.egg-info/
+**/__pycache__/**
