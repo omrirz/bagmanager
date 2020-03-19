@@ -11,11 +11,12 @@ pip install bagmanager
 ## Usage
 
 ```python
+from bagmanager import BagManager
 bag_file = '/path/to/bag/file.bag'
 bag_manager = BagManager(bag_file=bag_file)
 
 # info about the bag file
-print(bag_manager.bag_info)
+print(bag_manager)
 
 # get information about the topic
 topic_info = bag_manager.get_topic_info(topic='some_topic', get_header_time=True)
@@ -35,7 +36,6 @@ message_type = topic_info['message_type']
 
 # get the frequency of messages in the topic
 frequency = topic_info['frequency']
-
 
 
 # get the closest msg from 'another_topic' to a message from 'some_topic'by its 3rd message **header** time
