@@ -128,3 +128,6 @@ class BagManager:
 
     def __repr__(self):
         return f"BagManager [ path: {self.bag_info['path']} ] [ duration: {self.bag_info['duration']:.1f} sec ] [ messages: {self.bag_info['messages']} ]"
+
+    def __str__(self):
+        return self.bag.__str__()
