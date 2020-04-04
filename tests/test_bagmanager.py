@@ -26,7 +26,7 @@ def bag_file():
         rospy.init_node('bag_manager_tester')
         start_time = rospy.Time.now()
 
-        # the bag file start time is sometimes greater than the last msg rosbag_time. this should fix it.
+        # the bag file start time is sometimes greater than the first msg rosbag_time. this should fix it.
         fix_start_time = _get_write_data(topic='fix_start_time', stamp=start_time)
         bag.write(*fix_start_time)
 
@@ -41,7 +41,8 @@ def bag_file():
                 bag.write(*topic_2_tuple)
 
         # the bag file end time is sometimes less than the last msg rosbag_time. this should fix it.
-        fix_end_time = _get_write_data(topic='fix_end_time', stamp=start_time)
+        end_time = curr_time + rospy.Duration(np.random.uniform(1e-2, 2))
+        fix_end_time = _get_write_data(topic='fix_end_time', stamp=end_time)
         bag.write(*fix_end_time)
 
     yield bag_path
