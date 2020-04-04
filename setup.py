@@ -26,8 +26,8 @@ setuptools.setup(
     install_requires=[
         'numpy',
         'pyyaml',
+        'pyrosenv',
         'pycrypto',
         'gnupg',
-        'pyrosenv'
     ],
 )
