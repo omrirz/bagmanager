@@ -26,10 +26,15 @@ In this module there are two types of time for each msg:
 """
 
 
+class BagManagerException(Exception):
+    pass
+
+
 class BagManager:
     def __init__(self, bag_file: PathLike):
         self.bag = rosbag.Bag(bag_file)
         self.bag_info = self._get_bag_info(bag_file)
+        self.topics_info_cache = {}
 
     @staticmethod
     def _get_bag_info(bag_file: PathLike) -> Dict:
@@ -50,12 +55,17 @@ class BagManager:
         entry_gen = self.bag._get_entries(connections, start_time=None, end_time=None)
         msg_time_list_rosbag = [entry.time for entry in entry_gen]
         if get_header_time:
-            try:
-                msg_time_list_header = [msg.header.stamp for _, msg, _ in self.bag.read_messages(topics=[topic])]
-            except AttributeError:
-                msg_time_list_header = "Some msg doesn't have header timestamp"
+            if topic in self.topics_info_cache:
+                msg_time_list_header = self.topics_info_cache[topic]
+            else:
+                try:
+                    msg_time_list_header = [msg.header.stamp for _, msg, _ in self.bag.read_messages(topics=[topic])]
+                except AttributeError:
+                    msg_time_list_header = BagManagerException("Some msg doesn't have header timestamp")
+                self.topics_info_cache[topic] = msg_time_list_header
+
         else:
-            msg_time_list_header = "Call get_topic_info() with get_header_time=True to get the stamps from the headers"
+            msg_time_list_header = BagManagerException("Call get_topic_info() with get_header_time=True to get the headers stamps")
         topic_info = {'topic': topic, 'message_count': topic_tuple.message_count,
                       'message_type': topic_tuple.msg_type, 'frequency': topic_tuple.frequency,
                       'msg_time_list_header': msg_time_list_header, 'msg_time_list_rosbag': msg_time_list_rosbag}
