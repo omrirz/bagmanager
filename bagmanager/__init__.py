@@ -7,7 +7,7 @@ import yaml
 from pyrosenv import rosbag, rospy
 from pyrosenv import genpy
 
-TimeLike = Union[float, rospy.rostime.Time, genpy.Time]
+TimeLike = Union[float, rospy.Time, genpy.Time]
 PathLike = Union[str, pathlib.Path]
 RosMessage = genpy.Message
 
@@ -72,8 +72,8 @@ class BagManager:
 
     def get_closest_message_by_header_time(self, topic: str, time_header: TimeLike) -> RosMessage:
         """ Returns a message from the given topic with header timestamp closest to time_header """
-        if not isinstance(time_header, rospy.rostime.Time) and not isinstance(time_header, genpy.Time):
-            time_header = rospy.rostime.Time(time_header)
+        if not isinstance(time_header, rospy.Time) and not isinstance(time_header, genpy.Time):
+            time_header = rospy.Time(time_header)
         info = self.get_topic_info(topic=topic, get_header_time=True)
         argmin = np.argmin([abs(t - time_header) for t in info['msg_time_list_header']])
         matching_msg_time_rosbag = info['msg_time_list_rosbag'][argmin]
@@ -84,8 +84,8 @@ class BagManager:
 
     def get_closest_message_by_rosbag_time(self, topic: str, time_rosbag: TimeLike) -> RosMessage:
         """ Returns a message from the given topic with rosbag timestamp closest to time_rosbag """
-        if not isinstance(time_rosbag, rospy.rostime.Time) and not isinstance(time_rosbag, genpy.Time):
-            time_rosbag = rospy.rostime.Time(time_rosbag)
+        if not isinstance(time_rosbag, rospy.Time) and not isinstance(time_rosbag, genpy.Time):
+            time_rosbag = rospy.Time(time_rosbag)
         info = self.get_topic_info(topic=topic, get_header_time=False)
         argmin = np.argmin([abs(t - time_rosbag) for t in info['msg_time_list_rosbag']])
         matching_msg_time_rosbag = info['msg_time_list_rosbag'][argmin]
@@ -121,10 +121,10 @@ class BagManager:
         if end_time_rosbag is None:
             end_time_rosbag = self.bag_info['end']
 
-        if not isinstance(start_time_rosbag, rospy.rostime.Time) and not isinstance(start_time_rosbag, genpy.Time):
-            start_time_rosbag = rospy.rostime.Time(start_time_rosbag)
-        if not isinstance(end_time_rosbag, rospy.rostime.Time) and not isinstance(end_time_rosbag, genpy.Time):
-            end_time_rosbag = rospy.rostime.Time(end_time_rosbag)
+        if not isinstance(start_time_rosbag, rospy.Time) and not isinstance(start_time_rosbag, genpy.Time):
+            start_time_rosbag = rospy.Time(start_time_rosbag)
+        if not isinstance(end_time_rosbag, rospy.Time) and not isinstance(end_time_rosbag, genpy.Time):
+            end_time_rosbag = rospy.Time(end_time_rosbag)
 
         message_count = 0
         for topic in topics:
