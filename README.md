@@ -53,3 +53,17 @@ start_time_rosbag = topic_info['msg_time_list_rosbag'][2]
 end_time_rosbag = topic_info['msg_time_list_rosbag'][7]
 message_count = bag_manager.get_message_count_in_interval(topics=['some_topic', 'another_topic'], start_time_rosbag=start_time_rosbag, end_time_rosbag=end_time_rosbag)
 ```
+
+## Development
+
+Create a venv (recommended)
+
+```console
+python -m pip install -r requirements.txt
+```
+
+## Test
+
+```console
+python -m pytest
+```
