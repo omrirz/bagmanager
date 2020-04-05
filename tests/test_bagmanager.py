@@ -53,19 +53,30 @@ def test_ctor(bag_file):
     from bagmanager import BagManager
     bag_manager = BagManager(bag_file=bag_file)
     assert bool(bag_manager.bag_info) == True
-    assert bool(bag_manager.topics_info_cache) == False
+    assert bool(bag_manager._topics_info_cache) == False
 
 
 def test_topic_info_cache(bag_file):
     from bagmanager import BagManager
     bag_manager = BagManager(bag_file=bag_file)
     topic_1_info = bag_manager.get_topic_info('topic_1', get_header_time=False)
-    assert bool(bag_manager.topics_info_cache) == False
+    assert bool(bag_manager._topics_info_cache) == True
+    assert 'topic_1' in bag_manager._topics_info_cache
+    assert bag_manager._topics_info_cache['topic_1']['msg_time_list_header'] is None
+    assert 'topic_2' not in bag_manager._topics_info_cache
+
     topic_1_info_with_header_time = bag_manager.get_topic_info('topic_1', get_header_time=True)
-    assert 'topic_1' in bag_manager.topics_info_cache
-    assert 'topic_2' not in bag_manager.topics_info_cache
+    assert bool(bag_manager._topics_info_cache) == True
+    assert 'topic_1' in bag_manager._topics_info_cache
+    assert bag_manager._topics_info_cache['topic_1']['msg_time_list_header'] is not None
+    assert 'topic_2' not in bag_manager._topics_info_cache
+
     topic_2_info_with_header_time = bag_manager.get_topic_info('topic_2', get_header_time=True)
-    assert 'topic_2' in bag_manager.topics_info_cache
+    assert bool(bag_manager._topics_info_cache) == True
+    assert 'topic_1' in bag_manager._topics_info_cache
+    assert bag_manager._topics_info_cache['topic_1']['msg_time_list_header'] is not None
+    assert 'topic_2' in bag_manager._topics_info_cache
+    assert bag_manager._topics_info_cache['topic_2']['msg_time_list_header'] is not None
 
 
 def test_get_closest_message_by_header_time(bag_file):
