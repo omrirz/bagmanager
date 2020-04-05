@@ -2,6 +2,8 @@
 
 A thin wrapper around rosbag.Bag with some convenient methods
 
+![alt text](https://img.icons8.com/doodle/344/bag-front-view.png "bagmanager logo")
+
 ## Installation
 
 ```console
@@ -59,6 +61,7 @@ message_count = bag_manager.get_message_count_in_interval(topics=['some_topic', 
 Create a venv (recommended)
 
 ```console
+git clone https://github.com/omrirz/bagmanager.git
 python -m pip install -r requirements.txt
 ```
 
