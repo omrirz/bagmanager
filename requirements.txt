@@ -5,7 +5,6 @@ catkin-pkg==0.4.16
 commonmark==0.9.1
 defusedxml==0.6.0
 distro==1.4.0
-gnupg==2.3.1
 imagesize==1.2.0
 Jinja2==2.11.1
 m2r==0.2.1
@@ -17,7 +16,6 @@ packaging==20.3
 pluggy==0.13.1
 psutil==5.7.0
 py==1.8.1
-pycrypto==2.6.1
 pyparsing==2.4.6
 pyros-config==0.2.1
 pyros-setup==0.3.0
