@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='bagmanager',
-    version='0.0.4',
+    version='0.0.5',
     author='Omri Rozenzaft',
     author_email='omrirz@gmail.com',
     url='https://github.com/omrirz/bagmanager.git',
@@ -26,6 +26,8 @@ setuptools.setup(
     install_requires=[
         'numpy',
         'pyyaml',
-        'pyrosenv'
+        'pyrosenv',
+        'pycrypto',
+        'gnupg',
     ],
 )
