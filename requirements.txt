@@ -23,7 +23,7 @@ pyrosenv==0.0.2
 pytest==5.4.1
 python-dateutil==2.8.1
 pytz==2019.3
-PyYAML==5.3
+PyYAML==5.4
 recommonmark==0.6.0
 rospkg==1.2.3
 snowballstemmer==2.0.0
